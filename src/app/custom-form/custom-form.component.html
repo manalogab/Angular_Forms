@@ -1,0 +1,196 @@
+<div class="page-wrapper">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="form-card">
+          <div class="form-header">
+            <span class="form-badge"><i class="bi bi-stars me-1"></i>Custom Form</span>
+            <h2 class="form-title">Job Application</h2>
+            <p class="form-subtitle">Apply for a position at our company. All fields are required unless noted.</p>
+          </div>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+            <div class="section-label">Personal Information</div>
+
+            <div class="row g-3 mb-4">
+              <!-- First Name -->
+              <div class="col-md-6">
+                <label class="form-label">First Name</label>
+                <input class="form-control custom-input"
+                  [class.is-invalid]="isInvalid('firstName')"
+                  [class.is-valid]="isValid('firstName')"
+                  type="text" formControlName="firstName" placeholder="Juan" />
+                <div class="invalid-feedback" *ngIf="isInvalid('firstName')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('firstName') }}
+                </div>
+              </div>
+              <!-- Last Name -->
+              <div class="col-md-6">
+                <label class="form-label">Last Name</label>
+                <input class="form-control custom-input"
+                  [class.is-invalid]="isInvalid('lastName')"
+                  [class.is-valid]="isValid('lastName')"
+                  type="text" formControlName="lastName" placeholder="dela Cruz" />
+                <div class="invalid-feedback" *ngIf="isInvalid('lastName')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('lastName') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <!-- Email -->
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-envelope input-icon"></i>
+                  <input class="form-control custom-input"
+                    [class.is-invalid]="isInvalid('email')"
+                    [class.is-valid]="isValid('email')"
+                    type="email" formControlName="email" placeholder="juan@example.com" />
+                </div>
+                <div class="invalid-feedback" *ngIf="isInvalid('email')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('email') }}
+                </div>
+              </div>
+              <!-- Phone -->
+              <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-telephone input-icon"></i>
+                  <input class="form-control custom-input"
+                    [class.is-invalid]="isInvalid('phone')"
+                    [class.is-valid]="isValid('phone')"
+                    type="text" formControlName="phone" placeholder="09XXXXXXXXX" />
+                </div>
+                <div class="invalid-feedback" *ngIf="isInvalid('phone')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('phone') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Age</label>
+              <input class="form-control custom-input age-input"
+                [class.is-invalid]="isInvalid('age')"
+                [class.is-valid]="isValid('age')"
+                type="number" formControlName="age" placeholder="25" min="18" max="65" />
+              <div class="invalid-feedback" *ngIf="isInvalid('age')">
+                <i class="bi bi-x-circle me-1"></i>{{ getError('age') }}
+              </div>
+            </div>
+
+            <div class="section-label">Position Details</div>
+
+            <div class="row g-3 mb-4">
+              <!-- Department -->
+              <div class="col-md-6">
+                <label class="form-label">Department</label>
+                <select class="form-select custom-input"
+                  [class.is-invalid]="isInvalid('department')"
+                  [class.is-valid]="isValid('department')"
+                  formControlName="department">
+                  <option value="" disabled>Select department</option>
+                  <option *ngFor="let d of departments" [value]="d">{{ d }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="isInvalid('department')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('department') }}
+                </div>
+              </div>
+              <!-- Position Level -->
+              <div class="col-md-6">
+                <label class="form-label">Position Level</label>
+                <select class="form-select custom-input"
+                  [class.is-invalid]="isInvalid('position')"
+                  [class.is-valid]="isValid('position')"
+                  formControlName="position">
+                  <option value="" disabled>Select level</option>
+                  <option *ngFor="let p of positions" [value]="p">{{ p }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="isInvalid('position')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('position') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <!-- Years of Experience -->
+              <div class="col-md-6">
+                <label class="form-label">Years of Experience</label>
+                <input class="form-control custom-input"
+                  [class.is-invalid]="isInvalid('experience')"
+                  [class.is-valid]="isValid('experience')"
+                  type="number" formControlName="experience" placeholder="0" min="0" max="40" />
+                <div class="invalid-feedback" *ngIf="isInvalid('experience')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('experience') }}
+                </div>
+              </div>
+              <!-- Availability -->
+              <div class="col-md-6">
+                <label class="form-label">Available Start Date</label>
+                <input class="form-control custom-input"
+                  [class.is-invalid]="isInvalid('availability')"
+                  [class.is-valid]="isValid('availability')"
+                  type="date" formControlName="availability" />
+                <div class="invalid-feedback" *ngIf="isInvalid('availability')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('availability') }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="mb-4">
+              <label class="form-label">Key Skills <small class="text-muted">(comma-separated)</small></label>
+              <input class="form-control custom-input"
+                [class.is-invalid]="isInvalid('skills')"
+                [class.is-valid]="isValid('skills')"
+                type="text" formControlName="skills" placeholder="Angular, TypeScript, CSS..." />
+              <div class="invalid-feedback" *ngIf="isInvalid('skills')">
+                <i class="bi bi-x-circle me-1"></i>{{ getError('skills') }}
+              </div>
+            </div>
+
+            <!-- Cover Letter -->
+            <div class="mb-4">
+              <label class="form-label">Cover Letter</label>
+              <textarea class="form-control custom-input"
+                [class.is-invalid]="isInvalid('coverLetter')"
+                [class.is-valid]="isValid('coverLetter')"
+                formControlName="coverLetter"
+                rows="5"
+                placeholder="Tell us why you're a great fit for this role (minimum 50 characters)...">
+              </textarea>
+              <div class="d-flex justify-content-between mt-1">
+                <div class="invalid-feedback" *ngIf="isInvalid('coverLetter')">
+                  <i class="bi bi-x-circle me-1"></i>{{ getError('coverLetter') }}
+                </div>
+                <div class="char-count ms-auto">{{ charCount }}/1000</div>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+              <button type="submit" class="btn btn-submit">
+                <i class="bi bi-send me-2"></i>Submit Application
+              </button>
+              <button type="button" class="btn btn-reset" (click)="resetForm()">
+                <i class="bi bi-x-lg me-2"></i>Clear
+              </button>
+            </div>
+          </form>
+
+          <!-- Success Output -->
+          <div class="success-card mt-4" *ngIf="submittedData">
+            <h5><i class="bi bi-check-circle-fill me-2"></i>Application Submitted!</h5>
+            <p class="mt-2 text-success-muted">Thank you, <strong>{{ submittedData.firstName }} {{ submittedData.lastName }}</strong>! We'll review your application and get back to you at {{ submittedData.email }}.</p>
+            <div class="submitted-tags mt-3">
+              <span class="tag">{{ submittedData.department }}</span>
+              <span class="tag">{{ submittedData.position }}</span>
+              <span class="tag">{{ submittedData.experience }} yrs exp</span>
+              <span class="tag" *ngFor="let skill of submittedData.skills.split(',')">{{ skill.trim() }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

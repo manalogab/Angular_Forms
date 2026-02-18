@@ -1,0 +1,17 @@
+/* Add this to your global styles.css */
+
+html,
+body {
+  background-color: #080808 !important;
+  color: #e8e8e8 !important;
+  min-height: 100%;
+}
+
+/* If using Angular router outlet */
+app-root,
+app-custom,
+router-outlet + * {
+  display: block;
+  background: #080808 !important;
+  min-height: 100vh;
+}

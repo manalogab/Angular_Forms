@@ -1,0 +1,160 @@
+<div class="page-wrapper">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="form-card">
+          <div class="form-header">
+            <span class="form-badge">Reactive Form</span>
+            <h2 class="form-title">User Registration</h2>
+            <p class="form-subtitle">Model-driven form with reactive validation</p>
+          </div>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+            <!-- Username -->
+            <div class="mb-4">
+              <label class="form-label">Username</label>
+              <div class="input-wrapper">
+                <i class="bi bi-person input-icon"></i>
+                <input
+                  class="form-control custom-input"
+                  [class.is-invalid]="isInvalid('username')"
+                  [class.is-valid]="isValid('username')"
+                  type="text"
+                  formControlName="username"
+                  placeholder="Enter username"
+                />
+              </div>
+              <div class="invalid-feedback" *ngIf="isInvalid('username')">
+                <i class="bi bi-x-circle me-1"></i>{{ getError('username') }}
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+              <label class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <i class="bi bi-envelope input-icon"></i>
+                <input
+                  class="form-control custom-input"
+                  [class.is-invalid]="isInvalid('email')"
+                  [class.is-valid]="isValid('email')"
+                  type="email"
+                  formControlName="email"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div class="invalid-feedback" *ngIf="isInvalid('email')">
+                <i class="bi bi-x-circle me-1"></i>{{ getError('email') }}
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+              <label class="form-label">Password</label>
+              <div class="input-wrapper">
+                <i class="bi bi-lock input-icon"></i>
+                <input
+                  class="form-control custom-input"
+                  [class.is-invalid]="isInvalid('password')"
+                  [class.is-valid]="isValid('password')"
+                  type="password"
+                  formControlName="password"
+                  placeholder="Enter password"
+                />
+              </div>
+              <div class="invalid-feedback" *ngIf="isInvalid('password')">
+                <i class="bi bi-x-circle me-1"></i>{{ getError('password') }}
+              </div>
+            </div>
+
+            <!-- Role -->
+            <div class="mb-4">
+              <label class="form-label">Role</label>
+              <div class="input-wrapper">
+                <i class="bi bi-shield input-icon"></i>
+                <select
+                  class="form-select custom-input"
+                  [class.is-invalid]="isInvalid('role')"
+                  [class.is-valid]="isValid('role')"
+                  formControlName="role"
+                >
+                  <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="mb-4">
+              <label class="form-label">Gender</label>
+              <div class="radio-group">
+                <label class="radio-option" *ngFor="let g of ['Male','Female','Other']">
+                  <input type="radio" formControlName="gender" [value]="g" />
+                  <span class="radio-label">{{ g }}</span>
+                </label>
+              </div>
+              <div class="text-danger small mt-1" *ngIf="isInvalid('gender')">
+                <i class="bi bi-x-circle me-1"></i>Please select a gender.
+              </div>
+            </div>
+
+            <!-- Status -->
+            <div class="mb-4">
+              <label class="form-label">Employment Status</label>
+              <div class="input-wrapper">
+                <i class="bi bi-briefcase input-icon"></i>
+                <select
+                  class="form-select custom-input"
+                  [class.is-invalid]="isInvalid('status')"
+                  [class.is-valid]="isValid('status')"
+                  formControlName="status"
+                >
+                  <option value="" disabled>Select status</option>
+                  <option value="Permanent">Permanent</option>
+                  <option value="Probationary">Probationary</option>
+                </select>
+              </div>
+              <div class="invalid-feedback" *ngIf="isInvalid('status')">
+                <i class="bi bi-x-circle me-1"></i>Please select a status.
+              </div>
+            </div>
+
+            <!-- Comments -->
+            <div class="mb-4">
+              <label class="form-label">Comments / Notes</label>
+              <textarea
+                class="form-control custom-input"
+                formControlName="comments"
+                placeholder="Additional notes..."
+                rows="3"
+              ></textarea>
+              <div class="char-count">{{ form.get('comments')?.value?.length || 0 }}/300</div>
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+              <button type="submit" class="btn btn-primary btn-submit" [disabled]="form.invalid">
+                <i class="bi bi-check-lg me-2"></i>Submit
+              </button>
+              <button type="button" class="btn btn-outline-secondary btn-reset" (click)="resetForm()">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>Reset
+              </button>
+            </div>
+          </form>
+
+          <!-- Success Output -->
+          <div class="success-card mt-4" *ngIf="submittedData">
+            <h5><i class="bi bi-check-circle-fill me-2 text-success"></i>Form Submitted Successfully!</h5>
+            <table class="table table-sm mt-3">
+              <tbody>
+                <tr *ngFor="let key of objectKeys(submittedData)">
+                  <td class="fw-semibold text-capitalize">{{ key }}</td>
+                  <td>{{ submittedData[key] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
